@@ -131,7 +131,7 @@ function collegeScale(letterGrade) {
   return scale[letterGrade] || "N/A";
 }
 
-// Initialize the IndexedDB database
+// Done by Dorian - Initialize the IndexedDB database
 function openDB() {
   const request = indexedDB.open("Gradebook", 1);
 
@@ -155,7 +155,7 @@ function openDB() {
   return request;
 }
 
-// Save grades to IndexedDB
+// Done by Dorian - Save grades to IndexedDB
 function saveGradeToDB(grade) {
   const request = openDB();
 
@@ -177,7 +177,7 @@ function saveGradeToDB(grade) {
   };
 }
 
-// Load grades from IndexedDB
+// Done by Megnauth - Load grades from IndexedDB
 function loadGradesFromDB() {
   const request = openDB();
 
@@ -200,7 +200,7 @@ function loadGradesFromDB() {
   };
 }
 
-// Display grades from the loaded data
+// Done by Megnuath - Display grades from the loaded data
 function displayGrades() {
   enteredGrades.innerHTML = `Grades Entered: ${grades
     .map((grade) => {
@@ -228,7 +228,7 @@ function displayGrades() {
   )}`;
 }
 
-// Reset the gradebook and IndexedDB
+// Done by Dorian - Reset the gradebook and IndexedDB
 function resetGradebook() {
   grades = []; // Clear the grades array
 
@@ -257,11 +257,11 @@ function resetGradebook() {
   };
 }
 
-// Load data when page loads
+// Done by Dorian - Load data when page loads
 window.addEventListener("load", function () {
   loadGradesFromDB();
 });
 
-// Event listeners for the buttons
+// Done by Megnauth - Event listeners for the buttons
 calculate.addEventListener("click", addGradeAndDisplay);
 document.getElementById("reset").addEventListener("click", resetGradebook);
