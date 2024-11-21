@@ -19,7 +19,7 @@ var gradeTestData = [
 ];
 
 var avg = 0;
-
+// Done by dorian - sorts grades into lowest to highest and puts it into sort array and finds the median
 function median() {
   sorted = [gradeTestData].sort((a, b), a - b);
   const middle = Math.floor(sorted.length / 2);
