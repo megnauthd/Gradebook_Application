@@ -31,7 +31,8 @@ function median() {
 }
 
 function average() {
-  return grades.reduce((a, b) => a + b) / grades.length;
+  avg =  grades.reduce((a, b) => a + b, 0) / grades.length;
+  return avg.toFixed(2);
 }
 
 function addGradeAndDisplay() {
@@ -61,7 +62,7 @@ function passing() {}
 
 // failing done by Megnauth
 function failing() {
-    return gradeTestData.filter(grade => grade < 70).length;
+    return gradeTestData.filter(grade => grade < 65).length;
 }
 // letterGrade done by Megnauth
 function letterGrade() {
