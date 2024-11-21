@@ -1,5 +1,5 @@
 var teamNames = ["Dorian", "Megnauth"];
-
+// Done by Dorian - targeting all html elements
 const userInput = document.querySelector("#student-grades");
 const calculate = document.querySelector("#calculate");
 const enteredGrades = document.querySelector("#enteredGrades");
@@ -13,13 +13,8 @@ const GradeCollegeScale = document.querySelector("#collgeScale");
 var grades = [];
 var sorted = [];
 
-var gradeTestData = [
-  100, 97, 96, 93, 92, 90, 89, 87, 86, 83, 82, 80, 79, 77, 76, 73, 72, 70, 69,
-  67, 66, 65,
-];
-
 var avg = 0;
-
+// Done by Dorian - sorted grades array into sorted array and found median
 function median() {
   sorted = [...grades].sort((a, b) => a - b); 
   const middle = Math.floor(sorted.length / 2);
@@ -30,12 +25,12 @@ function median() {
   return sorted[middle];
 }
 
-// Calculates average of the grades
+// Done by Dorian - calculates average of the grades
 function average() {
   avg = grades.reduce((a, b) => a + b, 0) / grades.length;
   return avg.toFixed(2);
 }
-
+// Done by Megnauth and Dorian - asserts that input entered is correct and displays all functions in their respective container
 function addGradeAndDisplay() {
   const gradeInput = userInput.value;
   const grade = parseFloat(gradeInput);
@@ -58,15 +53,15 @@ function addGradeAndDisplay() {
     alert("Please enter a valid grade between 0 and 100.");
   }
 }
-
+// Done by Dorian - if grade is above 65 it is passing 
 function passing() {
-  return grades.filter((grade) => grade >= 70).length;
+  return grades.filter((grade) => grade >= 65).length;
 }
-
+// Done by Megnauth - if grade is below 65 it is failing
 function failing() {
   return grades.filter((grade) => grade < 65).length;
 }
-
+// Done by Megnauth - converts number grade to letter grade
 function letterGrade() {
   if (avg >= 97) {
     return "A+";
@@ -94,7 +89,7 @@ function letterGrade() {
     return "E/F";
   }
 }
-
+// Done by Megnauth - converts letter grade to college 4.0 scale
 function collegeScale(letterGrade) {
   const scale = {
     "A+": "4.0",
@@ -112,5 +107,5 @@ function collegeScale(letterGrade) {
   };
   return scale[letterGrade] || "N/A";
 }
-
+// Done by Megnauth - when calculate button clicked, display everything
 calculate.addEventListener("click", addGradeAndDisplay);
