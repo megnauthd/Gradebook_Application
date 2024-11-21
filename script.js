@@ -1,5 +1,15 @@
  var teamNames = ["Dorian", "Megnauth"];
 
+ const userInput = document.querySelector("#student-grades").value;
+ const calculate = document.querySelector("#calculate");
+ const enteredGrades = document.querySelector("#enteredGrades");
+ const studentGradeAverage = document.querySelector("#average");
+ const StudentGradeMedian = document.querySelector("#median");
+ const studentGradePassing = document.querySelector("#passing");
+ const StudentGradeFailing = document.querySelector("#failing");
+ const StudentLetterGrade = document.querySelector("#letterGrade");
+ const GradeCollegeScale = document.querySelector("#collgeScale");
+
 var grades = [];
 var sorted = [];
 
@@ -25,8 +35,3 @@ function letterGrade() {}
 //Checks through the letters array and compares it to the current letter grade being displayed then if they are equal using the index given, display the scale from the "scale" array.
 function collegeScale(letterGrade) {}
 
-document.addEventListener('keydown', function(event) {
-  if(event.key === "Enter") {
-    console.log("enter ke pressed")
-  }
-});
