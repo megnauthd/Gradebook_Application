@@ -4,11 +4,11 @@ const userInput = document.querySelector("#student-grades");
 const calculate = document.querySelector("#calculate");
 const enteredGrades = document.querySelector("#enteredGrades");
 const studentGradeAverage = document.querySelector("#average");
-const StudentGradeMedian = document.querySelector("#median");
+const studentGradeMedian = document.querySelector("#median");
 const studentGradePassing = document.querySelector("#passing");
-const StudentGradeFailing = document.querySelector("#failing");
-const StudentLetterGrade = document.querySelector("#letterGrade");
-const GradeCollegeScale = document.querySelector("#collgeScale");
+const studentGradeFailing = document.querySelector("#failing");
+const studentLetterGrade = document.querySelector("#letterGrade");
+const gradeCollegeScale = document.querySelector("#collegeScale");
 
 var grades = [];
 var sorted = [];
@@ -58,13 +58,13 @@ function addGradeAndDisplay() {
         return `<span class="${gradeClass}">${grade}</span>`;
       })
       .join(", ")}`;
-
+      // populates 
     studentGradeAverage.textContent = `Average: ${average()}`;
-    StudentGradeMedian.textContent = `Median: ${median()}`;
+    studentGradeMedian.textContent = `Median: ${median()}`;
     studentGradePassing.textContent = `Passing: ${passing()}`;
-    StudentGradeFailing.textContent = `Failing: ${failing()}`;
-    StudentLetterGrade.textContent = `Letter Grade: ${letterGrade()}`;
-    GradeCollegeScale.textContent = `College 4.0 Scale: ${collegeScale(
+    studentGradeFailing.textContent = `Failing: ${failing()}`;
+    studentLetterGrade.textContent = `Letter Grade: ${letterGrade()}`;
+    gradeCollegeScale.textContent = `College 4.0 Scale: ${collegeScale(
       letterGrade()
     )}`;
   } else {
@@ -115,16 +115,16 @@ function letterGrade() {
 function collegeScale(letterGrade) {
   const scale = {
     "A+": "4.0",
-    A: "4.0",
+    "A": "4.0",
     "A-": "3.7",
     "B+": "3.3",
-    B: "3.0",
+    "B": "3.0",
     "B-": "2.7",
     "C+": "2.3",
-    C: "2.0",
+    "C": "2.0",
     "C-": "1.7",
     "D+": "1.3",
-    D: "1.0",
+    "D": "1.0",
     "E/F": "0.0",
   };
   return scale[letterGrade] || "N/A";
