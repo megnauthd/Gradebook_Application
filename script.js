@@ -28,10 +28,56 @@ function display() {}
 
 function passing() {}
 
-function failing() {}
+// failing done by Megnauth
+function failing() {
+    return gradeTestData.filter(grade => grade < 70).length;
+}
+// letterGrade done by Megnauth
+function letterGrade() {
+   if (avg >= 97) {
+    return "A+";
+  } else if (avg >= 93) {
+    return "A";
+  } else if (avg >= 90) {
+    return "A-";
+  } else if (avg >= 87) {
+    return "B+";
+  } else if (avg >= 83) {
+    return "B";
+  } else if (avg >= 80) {
+    return "B-";
+  } else if (avg >= 77) {
+    return "C+";
+  } else if (avg >= 73) {
+    return "C";
+  } else if (avg >= 70) {
+    return "C-";
+  } else if (avg >= 67) {
+    return "D+";
+  } else if (avg >= 65) {
+    return "D";
+  } else {
+    return "E/F";
+  }
+}
 
-function letterGrade() {}
-
+//Done by Megnauth
 //Checks through the letters array and compares it to the current letter grade being displayed then if they are equal using the index given, display the scale from the "scale" array.
-function collegeScale(letterGrade) {}
+function collegeScale(letterGrade) {
+    const scale = {
+    "A+": "4.0",
+    "A": "4.0",
+    "A-": "3.7",
+    "B+": "3.3",
+    "B": "3.0",
+    "B-": "2.7",
+    "C+": "2.3",
+    "C": "2.0",
+    "C-": "1.7",
+    "D+": "1.3",
+    "D": "1.0",
+    "E/F": "0.0"
+    };
+    return scale[letterGrade] || "N/A";
+}
 
