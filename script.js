@@ -14,9 +14,10 @@ var grades = [];
 var sorted = [];
 
 var avg = 0;
+
 // Done by Dorian - sorted grades array into sorted array and found median
 function median() {
-  sorted = [...grades].sort((a, b) => a - b); 
+  sorted = [...grades].sort((a, b) => a - b);
   const middle = Math.floor(sorted.length / 2);
 
   if (sorted.length % 2 === 0) {
@@ -30,6 +31,7 @@ function average() {
   avg = grades.reduce((a, b) => a + b, 0) / grades.length;
   return avg.toFixed(2);
 }
+
 // Done by Megnauth and Dorian - asserts that input entered is correct and displays all functions in their respective container
 function addGradeAndDisplay() {
   const gradeInput = userInput.value;
@@ -38,9 +40,25 @@ function addGradeAndDisplay() {
   if (!isNaN(grade) && grade >= 0 && grade <= 100) {
     grades.push(grade);
 
-    userInput.value = ""; 
+    userInput.value = "";
 
-    enteredGrades.textContent = `Grades Entered: ${grades.join(", ")}`;
+    // Highlighting grades based on ranges
+    enteredGrades.innerHTML = `Grades Entered: ${grades
+      .map((grade) => {
+        let gradeClass = "";
+        if (grade >= 85) {
+          gradeClass = "green";
+        } else if (grade >= 75 && grade <= 84) {
+          gradeClass = "dark-yellow";
+        } else if (grade >= 65 && grade <= 74) {
+          gradeClass = "orange";
+        } else {
+          gradeClass = "red";
+        }
+        return `<span class="${gradeClass}">${grade}</span>`;
+      })
+      .join(", ")}`;
+
     studentGradeAverage.textContent = `Average: ${average()}`;
     StudentGradeMedian.textContent = `Median: ${median()}`;
     studentGradePassing.textContent = `Passing: ${passing()}`;
@@ -53,14 +71,17 @@ function addGradeAndDisplay() {
     alert("Please enter a valid grade between 0 and 100.");
   }
 }
-// Done by Dorian - if grade is above 65 it is passing 
+
+// Done by Dorian - if grade is above 65 it is passing
 function passing() {
   return grades.filter((grade) => grade >= 65).length;
 }
+
 // Done by Megnauth - if grade is below 65 it is failing
 function failing() {
   return grades.filter((grade) => grade < 65).length;
 }
+
 // Done by Megnauth - converts number grade to letter grade
 function letterGrade() {
   if (avg >= 97) {
@@ -89,6 +110,7 @@ function letterGrade() {
     return "E/F";
   }
 }
+
 // Done by Megnauth - converts letter grade to college 4.0 scale
 function collegeScale(letterGrade) {
   const scale = {
@@ -107,5 +129,6 @@ function collegeScale(letterGrade) {
   };
   return scale[letterGrade] || "N/A";
 }
+
 // Done by Megnauth - when calculate button clicked, display everything
 calculate.addEventListener("click", addGradeAndDisplay);

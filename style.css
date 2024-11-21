@@ -2,3 +2,19 @@ html {
   height: 100%;
   width: 100%;
 }
+
+.green {
+  color: green;
+}
+
+.dark-yellow {
+  color: #ffcc00; /* Dark yellow */
+}
+
+.orange {
+  color: orange;
+}
+
+.red {
+  color: red;
+}
