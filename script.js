@@ -29,17 +29,17 @@ function median() {
   }
   return sorted[middle];
 }
-
+// Done by dorian - adds up al array elements and divides by the amount of elements
 function average() {
-  return grades.reduce((a, b) => a + b) / grades.length;
+  return grades.reduce((a, b) => a + b, 0) / grades.length;
 }
 
 function addGradeAndDisplay() {
-  const gradeInput = userInput.value.trim();
+  const gradeInput = userInput.value;
   const grade = parseFloat(gradeInput);
 
-  if (!isNaN(grade) && grade >= 0 && grade <= 100) {
-    gradeTestData.push(grade);
+  if (!NaN(grades) >= 0 && grades <= 100) {
+    grades.push(gradeInput);
 
     userInput.value = "";
 
@@ -57,7 +57,9 @@ function addGradeAndDisplay() {
   }
 }
 
-function passing() {}
+function passing() {
+  return grades.filter(grade => grade > 65).length;
+}
 
 // failing done by Megnauth
 function failing() {
@@ -112,3 +114,6 @@ function collegeScale(letterGrade) {
     return scale[letterGrade] || "N/A";
 }
 
+calculate.addEventListener('click', function() {
+  addGradeAndDisplay();
+});
