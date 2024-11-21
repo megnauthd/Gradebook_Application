@@ -1,5 +1,5 @@
  var teamNames = ["Dorian", "Megnauth"];
-
+// Done by Dorian Targeting all html elements
  const userInput = document.querySelector("#student-grades").value;
  const calculate = document.querySelector("#calculate");
  const enteredGrades = document.querySelector("#enteredGrades");
@@ -20,7 +20,15 @@ var gradeTestData = [
 
 var avg = 0;
 
-function median() {}
+function median() {
+  sorted = [gradeTestData].sort((a, b), a - b);
+  const middle = Math.floor(sorted.length / 2);
+
+  if (sorted.length % 2 === 0) {
+    return (sorted[middle-1] + sorted[middle]) / 2;
+  }
+  return sorted[middle];
+}
 
 function average() {}
 
