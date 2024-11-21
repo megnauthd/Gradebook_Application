@@ -4,19 +4,48 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>TEMPLATE: Class Gradebook</title>
+	<title>Class Gradebook</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
 	<link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-	<div class="container">
-        
+	<div class="container d-flex flex-column align-items-center justify-content-start vh-100 mt-5">
+		<!-- Input Section Done by Megnauth-->
+		<div class="input-group w-50 mb-4">
+			<input type="text" class="form-control" placeholder="Enter student grade" aria-label="Student Grade">
+			<div class="input-group-append">
+				<button class="btn btn-success text-white" type="button">Calculate</button>
+			</div>
+		</div>
 
-
+		<!-- Grades Section by Megnauth-->
+		<div class="w-100">
+			<p class="font-weight-bold" style="text-align: left;">Grades Entered:</p>
+			<div class="row g-4"> 
+				<div class="col-md-4 mb-3"> 
+					<div class="border p-3">Average</div>
+				</div>
+				<div class="col-md-4 mb-3">
+					<div class="border p-3">Median</div>
+				</div>
+				<div class="col-md-4 mb-3">
+					<div class="border p-3">Passing</div>
+				</div>
+				<div class="col-md-4 mb-3">
+					<div class="border p-3">Failing</div>
+				</div>
+				<div class="col-md-4 mb-3">
+					<div class="border p-3">Letter Grade</div>
+				</div>
+				<div class="col-md-4 mb-3">
+					<div class="border p-3">College 4.0 Scale</div>
+				</div>
+			</div>
+		</div>
 	</div>
+
 	<script src="script.js"></script>
 </body>
 
