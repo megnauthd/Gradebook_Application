@@ -39,7 +39,6 @@ function addGradeAndDisplay() {
 
   if (!isNaN(grade) && grade >= 0 && grade <= 100) {
     grades.push(grade);
-
     userInput.value = "";
 
     // Highlighting grades based on ranges
@@ -58,7 +57,7 @@ function addGradeAndDisplay() {
         return `<span class="${gradeClass}">${grade}</span>`;
       })
       .join(", ")}`;
-      // populates 
+    // populates
     studentGradeAverage.textContent = `Average: ${average()}`;
     studentGradeMedian.textContent = `Median: ${median()}`;
     studentGradePassing.textContent = `Passing: ${passing()}`;
@@ -67,6 +66,8 @@ function addGradeAndDisplay() {
     gradeCollegeScale.textContent = `College 4.0 Scale: ${collegeScale(
       letterGrade()
     )}`;
+
+    saveGradeToDB(grade); // Save the grade to IndexedDB
   } else {
     alert("Please enter a valid grade between 0 and 100.");
   }
@@ -130,5 +131,137 @@ function collegeScale(letterGrade) {
   return scale[letterGrade] || "N/A";
 }
 
-// Done by Megnauth - when calculate button clicked, display everything
+// Initialize the IndexedDB database
+function openDB() {
+  const request = indexedDB.open("Gradebook", 1);
+
+  request.onupgradeneeded = function (event) {
+    const db = event.target.result;
+
+    // Create object store if it doesn't exist
+    if (!db.objectStoreNames.contains("grades")) {
+      const objectStore = db.createObjectStore("grades", {
+        keyPath: "id",
+        autoIncrement: true,
+      });
+      objectStore.createIndex("grade", "grade", { unique: false });
+    }
+  };
+
+  request.onerror = function (event) {
+    console.error("Error opening IndexedDB:", event.target.error);
+  };
+
+  return request;
+}
+
+// Save grades to IndexedDB
+function saveGradeToDB(grade) {
+  const request = openDB();
+
+  request.onsuccess = function (event) {
+    const db = event.target.result;
+    const transaction = db.transaction("grades", "readwrite");
+    const store = transaction.objectStore("grades");
+
+    const gradeData = { grade: grade };
+    store.add(gradeData);
+
+    transaction.oncomplete = function () {
+      console.log("Grade saved to IndexedDB.");
+    };
+
+    transaction.onerror = function (event) {
+      console.error("Error saving grade:", event.target.error);
+    };
+  };
+}
+
+// Load grades from IndexedDB
+function loadGradesFromDB() {
+  const request = openDB();
+
+  request.onsuccess = function (event) {
+    const db = event.target.result;
+    const transaction = db.transaction("grades", "readonly");
+    const store = transaction.objectStore("grades");
+
+    const getAllRequest = store.getAll(); // Get all grades
+
+    getAllRequest.onsuccess = function (event) {
+      const gradesFromDB = event.target.result;
+      grades = gradesFromDB.map((entry) => entry.grade); // Extract grades
+      displayGrades();
+    };
+
+    getAllRequest.onerror = function (event) {
+      console.error("Error loading grades:", event.target.error);
+    };
+  };
+}
+
+// Display grades from the loaded data
+function displayGrades() {
+  enteredGrades.innerHTML = `Grades Entered: ${grades
+    .map((grade) => {
+      let gradeClass = "";
+      if (grade >= 85) {
+        gradeClass = "green";
+      } else if (grade >= 75 && grade <= 84) {
+        gradeClass = "dark-yellow";
+      } else if (grade >= 65 && grade <= 74) {
+        gradeClass = "orange";
+      } else {
+        gradeClass = "red";
+      }
+      return `<span class="${gradeClass}">${grade}</span>`;
+    })
+    .join(", ")}`;
+
+  studentGradeAverage.textContent = `Average: ${average()}`;
+  studentGradeMedian.textContent = `Median: ${median()}`;
+  studentGradePassing.textContent = `Passing: ${passing()}`;
+  studentGradeFailing.textContent = `Failing: ${failing()}`;
+  studentLetterGrade.textContent = `Letter Grade: ${letterGrade()}`;
+  gradeCollegeScale.textContent = `College 4.0 Scale: ${collegeScale(
+    letterGrade()
+  )}`;
+}
+
+// Reset the gradebook and IndexedDB
+function resetGradebook() {
+  grades = []; // Clear the grades array
+
+  // Clear the displayed grades
+  enteredGrades.innerHTML = "Grades Entered: ";
+  studentGradeAverage.textContent = "Average: ";
+  studentGradeMedian.textContent = "Median: ";
+  studentGradePassing.textContent = "Passing: ";
+  studentGradeFailing.textContent = "Failing: ";
+  studentLetterGrade.textContent = "Letter Grade: ";
+  gradeCollegeScale.textContent = "College 4.0 Scale: ";
+
+  // Remove all entries from IndexedDB
+  const request = openDB();
+
+  request.onsuccess = function (event) {
+    const db = event.target.result;
+    const transaction = db.transaction("grades", "readwrite");
+    const store = transaction.objectStore("grades");
+
+    store.clear(); // Clears all grades in the object store
+
+    transaction.oncomplete = function () {
+      console.log("Gradebook reset in IndexedDB.");
+    };
+  };
+}
+
+// Load data when page loads
+window.addEventListener("load", function () {
+  loadGradesFromDB();
+});
+
+// Event listeners for the buttons
 calculate.addEventListener("click", addGradeAndDisplay);
+document.getElementById("reset").addEventListener("click", resetGradebook);
