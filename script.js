@@ -24,7 +24,28 @@ function median() {}
 
 function average() {}
 
-function display() {}
+function addGradeAndDisplay() {
+  const gradeInput = userInput.value.trim();
+  const grade = parseFloat(gradeInput);
+
+  if (!isNaN(grade) && grade >= 0 && grade <= 100) {
+    gradeTestData.push(grade);
+
+    userInput.value = "";
+
+    enteredGrades.textContent = `Grades Entered: ${gradeTestData.join(", ")}`;
+    studentGradeAverage.textContent = `Average: ${average()}`;
+    StudentGradeMedian.textContent = `Median: ${median()}`;
+    studentGradePassing.textContent = `Passing: ${passing()}`;
+    StudentGradeFailing.textContent = `Failing: ${failing()}`;
+    StudentLetterGrade.textContent = `Letter Grade: ${letterGrade()}`;
+    GradeCollegeScale.textContent = `College 4.0 Scale: ${collegeScale(
+      letterGrade()
+    )}`;
+  } else {
+    alert("Please enter a valid grade between 0 and 100.");
+  }
+}
 
 function passing() {}
 
