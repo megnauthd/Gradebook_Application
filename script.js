@@ -1,5 +1,4 @@
-// if working in a team (only 2 max)
-// var teamNames = [];
+ var teamNames = ["Dorian", "Megnauth"];
 
 var grades = [];
 var sorted = [];
@@ -17,5 +16,17 @@ function average() {}
 
 function display() {}
 
+function passing() {}
+
+function failing() {}
+
+function letterGrade() {}
+
 //Checks through the letters array and compares it to the current letter grade being displayed then if they are equal using the index given, display the scale from the "scale" array.
 function collegeScale(letterGrade) {}
+
+document.addEventListener('keydown', function(event) {
+  if(event.key === "Enter") {
+    console.log("enter ke pressed")
+  }
+});
