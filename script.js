@@ -1,14 +1,14 @@
- var teamNames = ["Dorian", "Megnauth"];
-// Done by Dorian Targeting all html elements
- const userInput = document.querySelector("#student-grades").value;
- const calculate = document.querySelector("#calculate");
- const enteredGrades = document.querySelector("#enteredGrades");
- const studentGradeAverage = document.querySelector("#average");
- const StudentGradeMedian = document.querySelector("#median");
- const studentGradePassing = document.querySelector("#passing");
- const StudentGradeFailing = document.querySelector("#failing");
- const StudentLetterGrade = document.querySelector("#letterGrade");
- const GradeCollegeScale = document.querySelector("#collgeScale");
+var teamNames = ["Dorian", "Megnauth"];
+
+const userInput = document.querySelector("#student-grades");
+const calculate = document.querySelector("#calculate");
+const enteredGrades = document.querySelector("#enteredGrades");
+const studentGradeAverage = document.querySelector("#average");
+const StudentGradeMedian = document.querySelector("#median");
+const studentGradePassing = document.querySelector("#passing");
+const StudentGradeFailing = document.querySelector("#failing");
+const StudentLetterGrade = document.querySelector("#letterGrade");
+const GradeCollegeScale = document.querySelector("#collgeScale");
 
 var grades = [];
 var sorted = [];
@@ -19,32 +19,33 @@ var gradeTestData = [
 ];
 
 var avg = 0;
-// Done by dorian - sorts grades into lowest to highest and puts it into sort array and finds the median
+
 function median() {
-  sorted = [grades].sort((a, b), a - b);
+  sorted = [...grades].sort((a, b) => a - b); 
   const middle = Math.floor(sorted.length / 2);
 
   if (sorted.length % 2 === 0) {
-    return (sorted[middle-1] + sorted[middle]) / 2;
+    return (sorted[middle - 1] + sorted[middle]) / 2;
   }
   return sorted[middle];
 }
 
+// Calculates average of the grades
 function average() {
-  avg =  grades.reduce((a, b) => a + b, 0) / grades.length;
+  avg = grades.reduce((a, b) => a + b, 0) / grades.length;
   return avg.toFixed(2);
 }
 
 function addGradeAndDisplay() {
-  const gradeInput = userInput.value.trim();
+  const gradeInput = userInput.value;
   const grade = parseFloat(gradeInput);
 
   if (!isNaN(grade) && grade >= 0 && grade <= 100) {
-    gradeTestData.push(grade);
+    grades.push(grade);
 
-    userInput.value = "";
+    userInput.value = ""; 
 
-    enteredGrades.textContent = `Grades Entered: ${gradeTestData.join(", ")}`;
+    enteredGrades.textContent = `Grades Entered: ${grades.join(", ")}`;
     studentGradeAverage.textContent = `Average: ${average()}`;
     StudentGradeMedian.textContent = `Median: ${median()}`;
     studentGradePassing.textContent = `Passing: ${passing()}`;
@@ -58,15 +59,16 @@ function addGradeAndDisplay() {
   }
 }
 
-function passing() {}
-
-// failing done by Megnauth
-function failing() {
-    return gradeTestData.filter(grade => grade < 65).length;
+function passing() {
+  return grades.filter((grade) => grade >= 70).length;
 }
-// letterGrade done by Megnauth
+
+function failing() {
+  return grades.filter((grade) => grade < 65).length;
+}
+
 function letterGrade() {
-   if (avg >= 97) {
+  if (avg >= 97) {
     return "A+";
   } else if (avg >= 93) {
     return "A";
@@ -93,23 +95,22 @@ function letterGrade() {
   }
 }
 
-//Done by Megnauth
-//Checks through the letters array and compares it to the current letter grade being displayed then if they are equal using the index given, display the scale from the "scale" array.
 function collegeScale(letterGrade) {
-    const scale = {
+  const scale = {
     "A+": "4.0",
-    "A": "4.0",
+    A: "4.0",
     "A-": "3.7",
     "B+": "3.3",
-    "B": "3.0",
+    B: "3.0",
     "B-": "2.7",
     "C+": "2.3",
-    "C": "2.0",
+    C: "2.0",
     "C-": "1.7",
     "D+": "1.3",
-    "D": "1.0",
-    "E/F": "0.0"
-    };
-    return scale[letterGrade] || "N/A";
+    D: "1.0",
+    "E/F": "0.0",
+  };
+  return scale[letterGrade] || "N/A";
 }
 
+calculate.addEventListener("click", addGradeAndDisplay);
